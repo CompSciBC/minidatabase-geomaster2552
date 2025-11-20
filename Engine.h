@@ -49,6 +49,7 @@ struct Engine {
     // Returns true if deletion succeeded.
     bool deleteById(int id) {
         //TODO
+        return false;
     }
 
     // Finds a record by student ID.
@@ -56,18 +57,21 @@ struct Engine {
     // Outputs the number of comparisons made in the search.
     const Record *findById(int id, int &cmpOut) {
         //TODO
+        return nullptr;
     }
 
     // Returns all records with ID in the range [lo, hi].
     // Also reports the number of key comparisons performed.
     vector<const Record *> rangeById(int lo, int hi, int &cmpOut) {
         //TODO
+        return {};
     }
 
     // Returns all records whose last name begins with a given prefix.
     // Case-insensitive using lowercase comparison.
     vector<const Record *> prefixByLast(const string &prefix, int &cmpOut) {
         //TODO
+        return {};
     }
 };
 
