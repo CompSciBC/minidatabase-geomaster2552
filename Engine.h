@@ -51,6 +51,12 @@ struct Engine {
 
         if(idIndex.find(id) != nullptr){
 
+            int index = *idIndex.find(id);
+
+            idIndex.erase(id);
+
+            heap[index].deleted = true;
+
             return true;
         }
 
