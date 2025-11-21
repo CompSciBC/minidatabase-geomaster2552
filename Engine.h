@@ -49,24 +49,31 @@ struct Engine {
     // Returns true if deletion succeeded.
     bool deleteById(int id) {
 
-        if(idIndex.find(id) == nullptr){
-            return false;
-        }else{
-            int index = *idIndex.find(id);
-
-            vector<int>* v = lastIndex.find(heap[index].last);
-
-            auto it = std::find(v->begin(), v->end(), index); //Used AI to help with iterator implimentation
-            if (it != v->end()) {
-                v->erase(it);
-            }
-
-            idIndex.erase(id);
-
-            heap[index].deleted = true;
+        if(idIndex.find(id) != nullptr){
 
             return true;
         }
+
+        return false;
+
+        // if(idIndex.find(id) == nullptr){
+        //     return false;
+        // }else{
+        //     int index = *idIndex.find(id);
+
+        //     vector<int>* v = lastIndex.find(heap[index].last);
+
+        //     auto it = std::find(v->begin(), v->end(), index); //Used AI to help with iterator implimentation
+        //     if (it != v->end()) {
+        //         v->erase(it);
+        //     }
+
+        //     idIndex.erase(id);
+
+        //     heap[index].deleted = true;
+
+        //     return true;
+        // }
     }
 
     // Finds a record by student ID.
