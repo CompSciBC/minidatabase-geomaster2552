@@ -62,10 +62,6 @@ struct Engine {
 
         return false;
 
-        // if(idIndex.find(id) == nullptr){
-        //     return false;
-        // }else{
-        //     int index = *idIndex.find(id);
 
         //     vector<int>* v = lastIndex.find(heap[index].last);
 
@@ -73,10 +69,6 @@ struct Engine {
         //     if (it != v->end()) {
         //         v->erase(it);
         //     }
-
-        //     idIndex.erase(id);
-
-        //     heap[index].deleted = true;
 
         //     return true;
         // }
@@ -87,6 +79,16 @@ struct Engine {
     // Outputs the number of comparisons made in the search.
     const Record *findById(int id, int &cmpOut) {
         //TODO
+        if(idIndex.find(id) != nullptr){
+            int index = *idIndex.find(id);
+
+            cmpOut = idIndex.comparisons;
+
+            Record* result = &heap[index];
+
+            return result;
+        }
+
         return nullptr;
     }
 
