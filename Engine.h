@@ -38,7 +38,7 @@ struct Engine {
             vector<int> v = {index};
             lastIndex.insert(recIn.last, v);
         }else{
-            vector<int> *v = lastIndex.find(recIn.last);
+            vector<int>* v = lastIndex.find(recIn.last);
             v->push_back(index);
         }
 
@@ -48,8 +48,25 @@ struct Engine {
     // Deletes a record logically (marks as deleted and updates indexes)
     // Returns true if deletion succeeded.
     bool deleteById(int id) {
-        //TODO
-        return false;
+
+        if(idIndex.find(id) == nullptr){
+            return false;
+        }else{
+            int index = *idIndex.find(id);
+
+            vector<int>* v = lastIndex.find(heap[index].last);
+
+            auto it = std::find(v->begin(), v->end(), index); //Used AI to help with iterator implimentation
+            if (it != v->end()) {
+                v->erase(it);
+            }
+
+            idIndex.erase(id);
+
+            heap[index].deleted = true;
+
+            return true;
+        }
     }
 
     // Finds a record by student ID.
