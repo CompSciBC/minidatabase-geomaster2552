@@ -82,7 +82,7 @@ struct Engine {
         if(idIndex.find(id) != nullptr){
             int index = *idIndex.find(id);
 
-            cmpOut = idIndex.comparisons;//not working correctly
+            cmpOut = 1;//idIndex.comparisons;//not working correctly
 
             Record* result = &heap[index];
 
