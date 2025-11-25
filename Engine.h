@@ -120,8 +120,6 @@ struct Engine {
         //TODO
         vector<const Record *> out;
 
-        cmpOut = 0;
-
         for(int i = 0; i < heap.size(); i++){
             cmpOut++;
             if(prefixMatch(heap[i].last, prefix) && !heap[i].deleted){
@@ -135,9 +133,10 @@ struct Engine {
     }
 
     //Used Git AI to help create helper function
-    private: bool prefixMatch(const string &last, const string prefix) {
+    private: bool prefixMatch(const string &last, const string prefix, int &cmpOut) {
         if (last.size() < prefix.size()) return false;
         for (size_t i = 0; i < prefix.size(); ++i) {
+            cmpOut++;
             if (tolower(last[i]) != tolower(prefix[i])) return false;
         }
         return true;
