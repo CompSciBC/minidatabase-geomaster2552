@@ -79,17 +79,17 @@ struct Engine {
     // Outputs the number of comparisons made in the search.
     const Record *findById(int id, int &cmpOut) {
 
+        Record* out = nullptr;
+
         if(idIndex.find(id) != nullptr){
             int index = *idIndex.find(id);
 
-            cmpOut = 1;//idIndex.comparisons;//not working correctly
-
-            Record* result = &heap[index];
-
-            return result;
+            out = &heap[index];
         }
 
-        return nullptr;
+        cmpOut = idIndex.comparisons;
+
+        return out;
     }
 
     // Returns all records with ID in the range [lo, hi].
