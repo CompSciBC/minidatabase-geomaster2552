@@ -103,6 +103,8 @@ struct Engine {
             }
         );
 
+        cmpOut = idIndex.comparisons;
+
         return out;
     }
 
@@ -110,8 +112,29 @@ struct Engine {
     // Case-insensitive using lowercase comparison.
     vector<const Record *> prefixByLast(const string &prefix, int &cmpOut) {
         //TODO
-        return {};
+        vector<const Record *> out;
+
+        for(int i = 0; i < heap.size(); i++){
+            if(prefixMatch(heap[i].last, prefix)){
+                out.push_back(&heap[i]);
+            }
+        }
+
+        // lastIndex.find(.compare(0, prefix.size(), prefix) == 0);
+
+        cmpOut = heap.size() - 1;
+
+        return out;
     }
+
+    //Used Git AI to help create helper function
+    private: bool prefixMatch(const string &last, const string prefix) {
+        if (last.size() < prefix.size()) return false;
+        for (size_t i = 0; i < prefix.size(); ++i) {
+            if (tolower(last[i]) != tolower(prefix[i])) return false;
+        }
+        return true;
+        }
 };
 
 #endif
