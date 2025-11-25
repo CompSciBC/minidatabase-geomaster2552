@@ -72,12 +72,10 @@ struct Engine {
 
         idIndex.resetMetrics();
 
-        if(idIndex.find(id) != nullptr && !heap[*idIndex.find(id)].deleted){
-            idIndex.resetMetrics();
+        int* index = idIndex.find(id);
 
-            int index = *idIndex.find(id);
-
-            out = &heap[index];
+        if(index != nullptr && !heap[*index].deleted){
+            out = &heap[*index];
         }
 
         cmpOut = idIndex.comparisons;
