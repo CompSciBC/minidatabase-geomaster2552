@@ -125,7 +125,7 @@ struct Engine {
         lastIndex.resetMetrics();
         // use rangeApply, smi and smi[, pass fuction that interates through vector, cmpOut = lastIndex.comparisons
 
-        lastIndex.rangeApply(prefix, prefix+'[', [&](const int &k, vector<int> &v) {
+        lastIndex.rangeApply(prefix, prefix+'[', [&](const string &k, const vector<int> &v) {
                 for(int i = 0; i < v.size(); i++){
                     out.push_back(&heap[v[i]]);
                 }
