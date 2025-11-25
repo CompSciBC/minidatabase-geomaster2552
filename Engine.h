@@ -81,6 +81,8 @@ struct Engine {
 
         Record* out = nullptr;
 
+        idIndex.resetMetrics();
+
         if(idIndex.find(id) != nullptr){
             int index = *idIndex.find(id);
 
