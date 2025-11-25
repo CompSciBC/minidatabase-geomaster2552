@@ -126,7 +126,7 @@ struct Engine {
 
         string preGT = pre;
 
-        preGT.insert(pre.length(), 1, '[');
+        preGT.insert(pre.length(), 1, '{');
 
         lastIndex.resetMetrics();
         // use rangeApply, smi and smi[, pass fuction that interates through vector, cmpOut = lastIndex.comparisons
