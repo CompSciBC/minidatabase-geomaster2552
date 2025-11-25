@@ -115,7 +115,7 @@ struct Engine {
         vector<const Record *> out;
 
         for(int i = 0; i < heap.size(); i++){
-            if(prefixMatch(heap[i].last, prefix)){
+            if(prefixMatch(heap[i].last, prefix) && !heap[i].deleted){
                 out.push_back(&heap[i]);
             }
         }
