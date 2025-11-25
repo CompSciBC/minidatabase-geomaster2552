@@ -122,7 +122,7 @@ struct Engine {
 
         for(int i = 0; i < heap.size(); i++){
             cmpOut++;
-            if(prefixMatch(heap[i].last, prefix) && !heap[i].deleted){
+            if(prefixMatch(heap[i].last, prefix, cmpOut) && !heap[i].deleted){
                 out.push_back(&heap[i]);
             }
         }
@@ -133,7 +133,7 @@ struct Engine {
     }
 
     //Used Git AI to help create helper function
-    private: bool prefixMatch(const string &last, const string prefix, int &cmpOut) {
+    private: bool prefixMatch(const string &last, const string prefix, int cmpOut) {
         if (last.size() < prefix.size()) return false;
         for (size_t i = 0; i < prefix.size(); ++i) {
             cmpOut++;
