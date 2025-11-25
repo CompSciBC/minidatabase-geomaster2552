@@ -127,7 +127,9 @@ struct Engine {
 
         lastIndex.rangeApply(prefix, prefix+'[', [&](const string &k, const vector<int> &v) {
                 for(int i = 0; i < v.size(); i++){
-                    out.push_back(&heap[v[i]]);
+                    if(!heap[v[i]].deleted){
+                        out.push_back(&heap[v[i]]);
+                    }
                 }
             }
         );
