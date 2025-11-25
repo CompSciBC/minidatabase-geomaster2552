@@ -51,13 +51,9 @@ struct Engine {
     // Returns true if deletion succeeded.
     bool deleteById(int id) {
 
-        //soft delete, check when inserting
-
         if(idIndex.find(id) != nullptr){
 
             int index = *idIndex.find(id);
-
-            idIndex.erase(id);
 
             heap[index].deleted = true;
 
@@ -65,17 +61,6 @@ struct Engine {
         }
 
         return false;
-
-
-        //     vector<int>* v = lastIndex.find(heap[index].last);
-
-        //     auto it = std::find(v->begin(), v->end(), index); //Used AI to help with iterator implimentation
-        //     if (it != v->end()) {
-        //         v->erase(it);
-        //     }
-
-        //     return true;
-        // }
     }
 
     // Finds a record by student ID.
@@ -87,7 +72,7 @@ struct Engine {
 
         idIndex.resetMetrics();
 
-        if(idIndex.find(id) != nullptr){
+        if(idIndex.find(id) != nullptr && !heap[*idIndex.find(id)].deleted){
             idIndex.resetMetrics();
 
             int index = *idIndex.find(id);
@@ -121,17 +106,14 @@ struct Engine {
     // Returns all records whose last name begins with a given prefix.
     // Case-insensitive using lowercase comparison.
     vector<const Record *> prefixByLast(const string &prefix, int &cmpOut) {
-        //TODO
+        
         vector<const Record *> out;
 
         string pre = toLower(prefix);
-
         string preGT = pre;
-
         preGT.insert(pre.length(), 1, '{');
 
         lastIndex.resetMetrics();
-        // use rangeApply, smi and smi[, pass fuction that interates through vector, cmpOut = lastIndex.comparisons
 
         lastIndex.rangeApply(pre, preGT, [&](const string &k, vector<int> &v) {
                 for(int i = 0; i < v.size(); i++){
@@ -143,32 +125,9 @@ struct Engine {
         );
 
         cmpOut = lastIndex.comparisons;
-        // if(prefix < lastIndex.find(heap[0].last)){
-
-        // }
-
-        // int *ptr = &cmpOut;
-
-        // for(int i = 0; i < heap.size(); i++){
-        //     if(prefixMatch(heap[i].last, prefix, *ptr) && !heap[i].deleted){
-        //         out.push_back(&heap[i]);
-        //     }
-        // }
-
-        // lastIndex.find(.compare(0, prefix.size(), prefix) == 0);
 
         return out;
     }
-
-    //Used Git AI to help create helper function
-    // private: bool prefixMatch(const string &last, const string prefix, int &cmpOut) {
-    //     if (last.size() < prefix.size()) return false;
-    //     for (size_t i = 0; i < prefix.size(); ++i) {
-    //         cmpOut++;
-    //         if (tolower(last[i]) != tolower(prefix[i])) return false;
-    //     }
-    //     return true;
-    // }
 };
 
 #endif
