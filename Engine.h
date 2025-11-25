@@ -49,6 +49,8 @@ struct Engine {
     // Returns true if deletion succeeded.
     bool deleteById(int id) {
 
+        //soft delete, check when inserting
+
         if(idIndex.find(id) != nullptr){
 
             int index = *idIndex.find(id);
@@ -120,13 +122,28 @@ struct Engine {
         //TODO
         vector<const Record *> out;
 
-        int *ptr = &cmpOut;
+        lastIndex.resetMetrics();
+        // use rangeApply, smi and smi[, pass fuction that interates through vector, cmpOut = lastIndex.comparisons
 
-        for(int i = 0; i < heap.size(); i++){
-            if(prefixMatch(heap[i].last, prefix, *ptr) && !heap[i].deleted){
-                out.push_back(&heap[i]);
+        lastIndex.rangeApply(prefix, prefix+'[', [&](const int &k, vector<int> &v) {
+                for(int i = 0; i < v.size(); i++){
+                    out.push_back(&heap[v[i]]);
+                }
             }
-        }
+        );
+
+        cmpOut = lastIndex.comparisons;
+        // if(prefix < lastIndex.find(heap[0].last)){
+
+        // }
+
+        // int *ptr = &cmpOut;
+
+        // for(int i = 0; i < heap.size(); i++){
+        //     if(prefixMatch(heap[i].last, prefix, *ptr) && !heap[i].deleted){
+        //         out.push_back(&heap[i]);
+        //     }
+        // }
 
         // lastIndex.find(.compare(0, prefix.size(), prefix) == 0);
 
@@ -134,14 +151,14 @@ struct Engine {
     }
 
     //Used Git AI to help create helper function
-    private: bool prefixMatch(const string &last, const string prefix, int &cmpOut) {
-        if (last.size() < prefix.size()) return false;
-        for (size_t i = 0; i < prefix.size(); ++i) {
-            cmpOut++;
-            if (tolower(last[i]) != tolower(prefix[i])) return false;
-        }
-        return true;
-    }
+    // private: bool prefixMatch(const string &last, const string prefix, int &cmpOut) {
+    //     if (last.size() < prefix.size()) return false;
+    //     for (size_t i = 0; i < prefix.size(); ++i) {
+    //         cmpOut++;
+    //         if (tolower(last[i]) != tolower(prefix[i])) return false;
+    //     }
+    //     return true;
+    // }
 };
 
 #endif
