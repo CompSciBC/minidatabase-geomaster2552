@@ -100,6 +100,8 @@ struct Engine {
     // Also reports the number of key comparisons performed.
     vector<const Record *> rangeById(int lo, int hi, int &cmpOut) {
 
+        idIndex.resetMetrics();
+
         vector<const Record *> out;
         idIndex.rangeApply(lo, hi, [&](const int &k, int &rid) {
             if (rid >= 0 && rid < (int)heap.size() && !heap[rid].deleted)
