@@ -123,9 +123,9 @@ struct Engine {
         cmpOut = 0;
 
         for(int i = 0; i < heap.size(); i++){
+            cmpOut++;
             if(prefixMatch(heap[i].last, prefix) && !heap[i].deleted){
                 out.push_back(&heap[i]);
-                cmpOut++;
             }
         }
 
@@ -141,7 +141,7 @@ struct Engine {
             if (tolower(last[i]) != tolower(prefix[i])) return false;
         }
         return true;
-        }
+    }
 };
 
 #endif
