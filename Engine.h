@@ -114,15 +114,16 @@ struct Engine {
         //TODO
         vector<const Record *> out;
 
+        cmpOut = 0;
+
         for(int i = 0; i < heap.size(); i++){
             if(prefixMatch(heap[i].last, prefix) && !heap[i].deleted){
                 out.push_back(&heap[i]);
+                cmpOut++;
             }
         }
 
         // lastIndex.find(.compare(0, prefix.size(), prefix) == 0);
-
-        cmpOut = heap.size() - 1;
 
         return out;
     }
