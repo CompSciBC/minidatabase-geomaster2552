@@ -127,7 +127,7 @@ struct Engine {
         lastIndex.resetMetrics();
         // use rangeApply, smi and smi[, pass fuction that interates through vector, cmpOut = lastIndex.comparisons
 
-        lastIndex.rangeApply(pre, pre+'[', [&](const string &k, const vector<int> &v) {
+        lastIndex.rangeApply(pre, pre+'[', [&](const string &k, vector<int> &v) {
                 for(int i = 0; i < v.size(); i++){
                     if(!heap[v[i]].deleted){
                         out.push_back(&heap[v[i]]);
