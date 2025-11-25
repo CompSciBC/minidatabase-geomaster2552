@@ -34,11 +34,13 @@ struct Engine {
 
         idIndex.insert(recIn.id, index);
 
-        if(lastIndex.find(recIn.last) == nullptr){
+        string last = toLower(recIn.last);
+
+        if(lastIndex.find(last) == nullptr){
             vector<int> v = {index};
-            lastIndex.insert(recIn.last, v);
+            lastIndex.insert(last, v);
         }else{
-            vector<int>* v = lastIndex.find(recIn.last);
+            vector<int>* v = lastIndex.find(last);
             v->push_back(index);
         }
 
