@@ -34,7 +34,7 @@ struct Engine {
     // Inserts a new record and updates both indexes.
     // Returns the record ID (RID) in the heap.
     int insertRecord(const Record &recIn) {
-        // for insertion should it traverse heap and find unused index marked as deleted?
+        
         int index = heap.size();
 
         heap.push_back(recIn);
@@ -62,7 +62,7 @@ struct Engine {
 
             int index = *idIndex.find(id);
 
-            heap[index].deleted = true; // logically record deletes in heap
+            heap[index].deleted = true; // logically deletes record in heap
             // when retrieving from heap or lastIndex must check if index is flagged as deleted
             idIndex.erase(id); // erases from idIndex
  
@@ -119,7 +119,6 @@ struct Engine {
 
         string pre = toLower(prefix); // last name must be logically greater than prefix
         string preGT = pre + "{"; // last name must be logically less than prefix + character greater than z
-        //preGT.insert(pre.length(), 1, '{');
 
         lastIndex.resetMetrics();
 
