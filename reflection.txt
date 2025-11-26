@@ -1,0 +1,20 @@
+Emmett Oliver
+Assignment 2
+CS300
+Fall 2025
+
+While implementing the Engine, I found it challenging at first to
+understand how the data structures interacted with each other.
+After studying the files and trying some implementations, I began to grasp it.
+It was also challenging to understand how cmpOut was supposed to work for
+the methods until I looked at the BST file and saw the resetMetrics method.
+Once I called that method before counting comparisons, cmpOut returned the expected number.
+By far, the most challenging piece for me was implementing prefixByLast.
+Once I understood how string comparisons work, I was able to use
+the rangeApply method to find the correct last name and pass a Lambda function
+to copy the appropriate indices to the output.
+
+I feel that I learned a lot from this assignment particularly how to integrate
+multiple data structures and types as well as how to use Lambda functions.
+Learning to use GitHub was also beneficial, and I feel that I understand the
+platform better now than I did before.
