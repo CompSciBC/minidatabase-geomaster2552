@@ -7,6 +7,13 @@
 #include "Record.h"
 //add header files as needed
 
+/* 
+* Emmett Oliver
+* Assignment 2
+* CS300
+* Fall 2025
+*/
+
 using namespace std;
 
 // Converts a string to lowercase (used for case-insensitive searches)
@@ -27,7 +34,7 @@ struct Engine {
     // Inserts a new record and updates both indexes.
     // Returns the record ID (RID) in the heap.
     int insertRecord(const Record &recIn) {
-
+        // for insertion should it traverse heap and find unused index marked as deleted?
         int index = heap.size();
 
         heap.push_back(recIn);
@@ -37,10 +44,10 @@ struct Engine {
         string last = toLower(recIn.last);
 
         if(lastIndex.find(last) == nullptr){
-            vector<int> v = {index};
+            vector<int> v = {index}; // base case for lastIndex: no preexisting last name
             lastIndex.insert(last, v);
         }else{
-            vector<int>* v = lastIndex.find(last);
+            vector<int>* v = lastIndex.find(last); // preexisting last name, add new index
             v->push_back(index);
         }
 
@@ -55,10 +62,10 @@ struct Engine {
 
             int index = *idIndex.find(id);
 
-            heap[index].deleted = true;
-
-            idIndex.erase(id);
-
+            heap[index].deleted = true; // logically record deletes in heap
+            // when retrieving from heap or lastIndex must check if index is flagged as deleted
+            idIndex.erase(id); // erases from idIndex
+ 
             return true;
         }
 
@@ -70,14 +77,14 @@ struct Engine {
     // Outputs the number of comparisons made in the search.
     const Record *findById(int id, int &cmpOut) {
 
-        Record* out = nullptr;
+        Record* out = nullptr; // base case: not found
 
         idIndex.resetMetrics();
 
-        int* index = idIndex.find(id);
+        int* index = idIndex.find(id); // find index by id in idIndex
 
         if(index != nullptr && !heap[*index].deleted){
-            out = &heap[*index];
+            out = &heap[*index]; // updates index to out if found
         }
 
         cmpOut = idIndex.comparisons;
@@ -92,9 +99,10 @@ struct Engine {
         idIndex.resetMetrics();
 
         vector<const Record *> out;
+
         idIndex.rangeApply(lo, hi, [&](const int &k, int &rid) {
             if (rid >= 0 && rid < (int)heap.size() && !heap[rid].deleted)
-                out.push_back(&heap[rid]);
+                out.push_back(&heap[rid]); // Lambda function pushes record to out when in the range applied
             }
         );
 
@@ -109,16 +117,16 @@ struct Engine {
         
         vector<const Record *> out;
 
-        string pre = toLower(prefix);
-        string preGT = pre;
-        preGT.insert(pre.length(), 1, '{');
+        string pre = toLower(prefix); // last name must be logically greater than prefix
+        string preGT = pre + "{"; // last name must be logically less than prefix + character greater than z
+        //preGT.insert(pre.length(), 1, '{');
 
         lastIndex.resetMetrics();
 
         lastIndex.rangeApply(pre, preGT, [&](const string &k, vector<int> &v) {
-                for(int i = 0; i < v.size(); i++){
-                    if(!heap[v[i]].deleted){
-                        out.push_back(&heap[v[i]]);
+                for(int i = 0; i < v.size(); i++){  // Lambda function iterates through indices
+                    if(!heap[v[i]].deleted){        // checks if not deleted
+                        out.push_back(&heap[v[i]]); // pushes to out 
                     }
                 }
             }
